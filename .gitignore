@@ -1,0 +1,5 @@
+*.sh
+*.gem
+.idea
+.idea/*
+Gemfile.lock

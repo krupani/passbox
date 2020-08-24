@@ -1,0 +1,68 @@
+#!/usr/bin/env ruby
+
+require 'passbox'
+
+def print_help
+    puts <<HELP
+
+        Usage: passbox <command>
+
+        Commands 
+
+            version :   Prints the version of passbox 
+                        currently installed.
+                        Usage: passbox --version | passbox -v
+
+            help    :   Prints help information
+                        (No authentication required.)
+
+            init    :   Helps setup a passbox store and
+                        setup a master password. 
+
+            list    :   Lists all the accounts present
+                        in passbox.
+                        (No authentication required.)
+
+            add     :   add a new account with username and
+                        password into passbox.
+                        (Authentication required.)
+
+            read    :   read username and password from an
+                        existing account present in passbox.
+                        (Authentication required.)
+
+            update  :   update username and password in an 
+                        existing account present in passbox.
+                        (Authentication required.)
+                        
+            delete  :   delete an account from passbox.
+                        (Authentication required.)
+                        
+HELP
+end
+
+if ARGV.length == 0
+    print_help
+else
+    cmd = ARGV.shift
+    case(cmd.downcase)
+    when "help", "--help", "-h"
+        print_help
+    when 'version', '--version', '-v'
+        puts File.read(File.expand_path("../../lib/passbox/version", __FILE__))
+    when "init"
+        init
+    when "add"
+        create_pass
+    when "read"
+        read_pass
+    when "update"
+        update_pass
+    when "delete"
+        delete_pass
+    when "list"
+        list_of_accounts
+    else
+        puts "Invalid Command. Enter 'passbox help' to show usage"
+    end
+end
