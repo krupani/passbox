@@ -5,7 +5,7 @@ module Passbox
         print "Please enter you account name (case-sensitive): "
         acc = gets.chomp
         if (!File.exists?("#{$pbdir}/#{acc}.pb"))
-            print "Account not found, Use 'passbox list' to see all existing accounts.\n"
+            print "Account not found, Use 'passbox list' to see all your existing accounts.\n"
             exit(0)
         end
         return acc
@@ -25,9 +25,9 @@ module Passbox
         key = passbox_auth
         if key
             while(true)
-                print "\nEnter you account name (no special characters): "
-                acc = gets.chomp
-                if (acc.count("a-zA-Z0-9") == acc.length) 
+                print "\nEnter you account name (alphabets/numbers only): "
+                acc = gets.chomp.downcase
+                if (acc.count("a-z0-9") == acc.length) 
                     break
                 else
                     "\nAccount name can only have Alphabets and Numbers (no special characters), try again!!"
@@ -35,6 +35,7 @@ module Passbox
             end
         end
         creds(acc,key)
+        print "Account #{acc} has been successfully created!! \n"
     end
 
     def read_pass
@@ -53,12 +54,12 @@ module Passbox
         acc=verify_account
         key = passbox_auth
         creds(acc,key)
+        print "Account details has been successfully updated!! \n"
     end
 
     def delete_pass
         check_passbox
         acc = verify_account
-        key = passbox_auth
         if key
             File.delete("#{$pbdir}/#{acc}.pb")
             print("\nAccount #{acc} has been deleted!!")

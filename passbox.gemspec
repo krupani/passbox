@@ -12,8 +12,4 @@ Gem::Specification.new do |s|
 	s.homepage			    =	'https://github.com/krupani/passbox'
 	s.license				=   'MIT'
 	s.required_ruby_version =   '~> 2'
-	# s.add_runtime_dependency('bundler', '>=1')
-	# s.add_development_dependency('selenium-webdriver', '~>3')
-	# s.add_development_dependency('watir', '~>6')
-	# s.post_install_message 	= "\n\n=>=>=>=>=> Thank you for installing TestNow gem. <=<=<=<=<= \n\n"
 end
