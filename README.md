@@ -5,6 +5,8 @@ A Ruby based minimalistic offline cli password manager using strong AES encrypti
 ## Table of Contents   
 - [1. Introduction](#introduction)   
 - [2. Installation](#install)   
+    - [2a. Homebrew](#brew)
+    - [2b. Rubygems](#gem)
 - [3. Usage](#usage)   
     - [3a. Initial Setup](#init)    
     - [3b. Add a new password](#add)    
@@ -28,11 +30,21 @@ Note: I wouldn't say its uncrackable as nothing in the world is.
      
 ## <a name="install"></a> 2. Installation  
 Passbox currently only supports Linux/MacOS based envvrionments.   
-As its a ruby based, it needs a working installation of Ruby version 2 and above installed as a pre-requisite.   
-It can be installed as just any other gem.    
+    
+### <a name="brew"></a> 2a. Homebrew    
+Easiest way to install on macos is using [Homebrew](https://brew.sh)     
+```console
+$ brew tap krupani/homebrew-formulae
+$ brew install passbox
+```    
+
+### <a name="gem"></a> 2b. Rubygems   
+If you have a working installation of ruby, passbox can be installed as a rubygem simply by using gem command.   
       
-``` gem install passbox ```     
-     
+```console
+$ gem install passbox 
+```     
+      
      
 ## <a name="usage"></a> 3. Usage    
 As mentioned above, passbox is a cli based utility. Below are few basic functions which you can perform.     
@@ -41,14 +53,18 @@ As mentioned above, passbox is a cli based utility. Below are few basic function
 Before starting, you need to setup the passbox utility which will include creating a base directory and creating your master password.    
 This can be easily done using the init command as follows:    
      
-``` passbox init ```    
+```console
+$ passbox init 
+```    
 
 This will ask you create a master password, its recommended you create this one time master password really complex and more than 10 characters to make it really difficult to brute force.    
       
 ### <a name="add"></a> 3b. Add a new password      
 Once passbox is setup, you can start adding password. It can be done using the create command which can be used as follows:     
      
-``` passbox add ```     
+```console
+$ passbox add 
+```     
      
 This command will ask you 3 questions:
 - first to enter your account name (no special charaters)    
@@ -59,7 +75,9 @@ This command will ask you 3 questions:
 ### <a name="read"></a> 3c. Read an existing password     
 Once you have saved your password, you can view them as and when needed, authenticating using your master password and entering your account name of the password you want to view, as follows :     
        
-``` passbox read ```    
+```console
+$ passbox read 
+```    
      
 This command will ask you 2 questions:
 - to enter you account name for which you want to view the password.     
@@ -68,7 +86,9 @@ This command will ask you 2 questions:
 ### <a name="update"></a> 3d. Update an existing password     
 You can update your account details (username and password) when needed, authenticating using your master password and entering your account name you need to update :     
        
-``` passbox update ```    
+```console
+$ passbox update 
+```    
      
 This command will ask you 4 questions:     
 - First to enter you account name for which you want to update the password.     
@@ -79,14 +99,18 @@ This command will ask you 4 questions:
 ### <a name="delete"></a> 3e. Delete an existing account
 You can delete an existing account, if you do not need it anymore. It can be done using the delete command and does not require any kind of authentication.     
      
-``` passbox delete ```   
+```console
+$ passbox delete 
+```   
     
 This command will only ask you the account name to delete.    
 
 ### <a name="list"></a> 3f. List all available accounts   
 You can list all accounts you have using the following command without any authentication required.    
     
-``` passbox list ```    
+```console
+$ passbox list 
+```    
     
 ## <a name="contributing"></a> 4. Contributing    
 Ideas and suggestions are always always most welcome. Please fork this code and feel free to add any updates, suggestions etc and create a pull request.   
