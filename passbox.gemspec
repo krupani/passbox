@@ -11,5 +11,5 @@ Gem::Specification.new do |s|
 	s.executables 	        <<  'passbox'
 	s.homepage			    =	'https://github.com/krupani/passbox'
 	s.license				=   'MIT'
-	s.required_ruby_version =   '~> 2'
+	s.required_ruby_version =   '>= 2'
 end

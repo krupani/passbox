@@ -2,7 +2,7 @@ module Passbox
     require 'json'
 
     def verify_account
-        print "Please enter you account name (case-sensitive): "
+        print "Please enter you account name: "
         acc = gets.chomp
         if (!File.exists?("#{$pbdir}/#{acc}.pb"))
             print "Account not found, Use 'passbox list' to see all your existing accounts.\n"
@@ -25,12 +25,12 @@ module Passbox
         key = passbox_auth
         if key
             while(true)
-                print "\nEnter you account name (alphabets/numbers only): "
+                print "\nEnter you account name (alphabets/numbers/underscore/dash): "
                 acc = gets.chomp.downcase
-                if (acc.count("a-z0-9") == acc.length) 
+                if (acc.count("a-z0-9_-") == acc.length) 
                     break
                 else
-                    "\nAccount name can only have Alphabets and Numbers (no special characters), try again!!"
+                    print "Alphabets, Numbers, Underscore and Dashes only, try again please!!\n"
                 end
             end
         end
