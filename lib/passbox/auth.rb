@@ -20,20 +20,22 @@ module Passbox
 
     def password_input(action)
         pass = STDIN.noecho(&:gets).chomp
-        if (pass.length < 8 && action != :account) 
-            if (action == :master) 
-                print "\nPassword should be minimum 8 characters, try again!!\n"
-                return false
-            elsif (action == :auth)
-                print "\nInvalid Password!!\n"
-                exit(0)
-            end 
-        elsif (action == :account)
-            print("\n")
-            return pass
+        case action
+        when :master, :auth
+            if (pass.length < 8) 
+                if (action == :master) 
+                    print "\nPassword should be minimum 8 characters, try again!!\n".red
+                    return false
+                elsif (action == :auth)
+                    print "\nInvalid Password!!\n".bold.red
+                    exit(0)
+                end 
+            else
+                return Digest::SHA256.hexdigest(pass)
+            end
         else
             print("\n")
-            return Digest::SHA256.hexdigest(pass)
+            return pass
         end
     end
 
@@ -41,10 +43,10 @@ module Passbox
         pass256User = get_password_from_user(:auth)
         pass256File = decrypt($passfile, pass256User)
         if pass256File == pass256User
-            print("Authentication Successful!!\n")
+            print "Authentication Successful!!\n".bold.green
             return pass256File
         else
-            print("Authentication Failed!!\n")
+            print "Authentication Failed!!\n".bold.red
             return false
         end
     end

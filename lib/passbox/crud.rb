@@ -20,24 +20,6 @@ module Passbox
         encrypt(json, key, "#{$pbdir}/#{acc}.pb")
     end
 
-    def create_pass
-        check_passbox
-        key = passbox_auth
-        if key
-            while(true)
-                print "\nEnter you account name (alphabets/numbers/underscore/dash): "
-                acc = gets.chomp.downcase
-                if (acc.count("a-z0-9_-") == acc.length) 
-                    break
-                else
-                    print "Alphabets, Numbers, Underscore and Dashes only, try again please!!\n"
-                end
-            end
-        end
-        creds(acc,key)
-        print "Account #{acc} has been successfully created!! \n"
-    end
-
     def read_pass
         check_passbox
         acc=verify_account
