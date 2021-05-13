@@ -15,13 +15,15 @@ def print_help
 
             help    :   Prints help information
                         (No authentication required.)
+                        Usage: passbox help | passbox -h | passbox --help
 
             init    :   Helps setup a passbox store and
                         setup a master password. 
+                        Usage: passbox init | passbox -i
 
-            list    :   Lists all the accounts present
-                        in passbox.
+            list    :   Lists all accounts in passbox.
                         (No authentication required.)
+                        Usage: passbox list | passbox ls
 
             add     :   add a new account with username and
                         password into passbox.
@@ -50,7 +52,7 @@ else
         print_help
     when 'version', '--version', '-v'
         puts File.read(File.expand_path("../../lib/passbox/version", __FILE__))
-    when "init"
+    when "init", "-i"
         init
     when "add"
         create_pass
@@ -60,7 +62,7 @@ else
         update_pass
     when "delete"
         delete_pass
-    when "list"
+    when "list", "ls"
         list_of_accounts
     else
         puts "Invalid Command. Enter 'passbox help' to show usage"
