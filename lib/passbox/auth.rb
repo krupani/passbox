@@ -3,17 +3,27 @@ module Passbox
     require 'digest'
 
     def get_password_from_user(action=:account)
-        if (action == :account)
-            print "Please enter your account password: "
+        case action
+        when :account
+            print "Please enter your Account Password: "
             return password_input(action)
-        elsif (action == :master)
+        when :pin
+            print "Please enter you Account Pin: "
+            return password_input(action)
+        when :cvv
+            print "Please enter you Card CVV: "
+            return password_input(action)
+        when :card_pin
+            print "Please enter you Card Pin: "
+            return password_input(action)
+        when :master
             while(true)
                 print "Please create your master password (min 8 chars): "
                 pass256 = password_input(action)
                 return pass256 if pass256;
             end
-        elsif (action == :auth)
-            print "Please enter your master password: "
+        when :auth
+            print "Please enter your Master Password: "
             return password_input(action)
         end
     end

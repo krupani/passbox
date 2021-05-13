@@ -3,7 +3,7 @@ module Passbox
     def create_pass
         check_passbox
         option = select_option
-        acc, key = create_account
+        acc, key = create_account(option)
         case option
         when 1
             login(acc, key)
@@ -45,7 +45,7 @@ module Passbox
         hash[:note] = note if note
         json = hash.to_json
         encrypt(json, key, "#{$pbdir}/#{acc}.pb")
-        print "Account #{acc} has been successfully created!! \n"
+        print "Account #{acc} has been successfully created!! \n\n".green
     end
 
     def pin(acc, key)
@@ -56,7 +56,7 @@ module Passbox
         hash[:note] = note if note
         json = hash.to_json
         encrypt(json, key, "#{$pbdir}/#{acc}.pn")
-        print "Account #{acc} has been successfully created!! \n"
+        print "Account #{acc} has been successfully created!! \n\n".green
     end
 
     def cc(acc, key)
@@ -67,11 +67,11 @@ module Passbox
         hash = {:card_number => cc_no, :card_expiry => cc_exp}
         cc_cvv = get_password_from_user(:cvv)
         hash[:card_cvv] => cc_cvv
-        cc_pin = get_password_from_user(:cvv)
+        cc_pin = get_password_from_user(:card_pin)
         hash[:card_pin] => cc_pin
         json = hash.to_json
         encrypt(json, key, "#{$pbdir}/#{acc}.cc")
-        print "Account #{acc} has been successfully created!! \n"
+        print "Account #{acc} has been successfully created!! \n\n".green
     end
 
 end
