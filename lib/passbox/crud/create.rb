@@ -19,13 +19,20 @@ module Passbox
     def create_account(option)
         key = passbox_auth
         if key
+            attempts = 0
             while(true)
+                attempts = attempts + 1
                 print "\nEnter you account name (alphabets/numbers/underscore/dash): "
                 acc = gets.chomp.downcase
-                if (acc.count("a-z0-9_-") == acc.length) 
+                if (acc.count("a-z0-9_-") == acc.length)
+                    # TODO: Verify here if account name already exists.. 
                     break
                 else
                     print "Alphabets, Numbers, Underscore and Dashes only, try again please!!\n"
+                end
+                if attempt == 3
+                    print "\nToo many attempts. Try again!!\n\n".bold.red
+                    exit(0) 
                 end
             end
         end

@@ -17,10 +17,27 @@ module Passbox
             print "Please enter you Card Pin: "
             return password_input(action)
         when :master
+            attempt = 0
             while(true)
+                attempt = attempt + 1;
                 print "Please create your master password (min 8 chars): "
                 pass256 = password_input(action)
-                return pass256 if pass256;
+                if pass256
+                    print "\nPlease re-enter your password: "
+                    re_pass256 = password_input(action)
+                    if re_pass256 == pass256
+                        return pass256 
+                    else
+                        print "\n\nPasswords don't match. Try again!!\n\n".bold.red
+                        exit(0);
+                    end
+                else
+                    print "\nPassword should be minimum 8 characters, try again!!\n".red
+                end
+                if attempt == 3
+                    print "\nToo many attempts. Try again!!\n\n".bold.red
+                    exit(0) 
+                end
             end
         when :auth
             print "Please enter your Master Password: "
@@ -34,7 +51,6 @@ module Passbox
         when :master, :auth
             if (pass.length < 8) 
                 if (action == :master) 
-                    print "\nPassword should be minimum 8 characters, try again!!\n".red
                     return false
                 elsif (action == :auth)
                     print "\nInvalid Password!!\n".bold.red
