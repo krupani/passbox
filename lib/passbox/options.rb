@@ -4,7 +4,7 @@ module Passbox
         print "\n1. Password"
         print "\n2. Pin"
         print "\n3. Debit/Credit Card"
-        print "\nPlease select one of the following options: " 
+        print "\nPlease select one of the above options: " 
         return gets.chomp.to_i
     end
 

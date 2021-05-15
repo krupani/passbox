@@ -26,6 +26,7 @@ module Passbox
                     print "\nPlease re-enter your password: "
                     re_pass256 = password_input(action)
                     if re_pass256 == pass256
+                        print "\n\nPassbox setup complete. Use 'passbox help' to explore.\n\n".bold.green
                         return pass256 
                     else
                         print "\n\nPasswords don't match. Try again!!\n\n".bold.red

@@ -35,14 +35,29 @@ module Passbox
         elsif files.size == 1
             return files.first
         else
-            # WIP
-            # files.each_with_index do |file, i|
-            #     print "#{i+1}: #{file}"
-            # end
-            # print "\nMultiple accounts found, please chose one: "
-            # WIP
+            files.each_with_index do |file, i|
+                filename = file.split("/").last.split(".").first
+                fileext = file.split("/").last.split(".").last
+                case fileext
+                when "pb"
+                    print "\n#{i+1}: #{filename} - Login & Password Category"
+                when "pn"
+                    print "\n#{i+1}: #{filename} - Account Pins Category"
+                when "cc"
+                    print "\n#{i+1}: #{filename} - Credit/Debit Card Category"
+                else
+                    # do nothing
+                end
+            end
+            print "\nMultiple accounts found, please chose one: 1..#{files.size}"
+            option = gets.chomp.to_i
+            if (1..files.size).include?(option)
+                return files[option-1]
+            else
+                print "\nInvalid selection. Try again. Bye!!\n\n".red
+                exit(0)
+            end
         end
-        return acc
     end
 
 end
