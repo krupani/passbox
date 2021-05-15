@@ -28,7 +28,7 @@ module Passbox
     def verify_account
         print "Please enter you account name: "
         acc = gets.chomp
-        files = Dir.glob("#{$pbdir}/#{acc}.*")
+        files = Dir.glob("#{$pbdir}/#{acc}.{pb,pn,cc}")
         if files.size == 0
             print "Account not found, Use 'passbox list' to see all your existing accounts.\n"
             exit(0)
@@ -49,7 +49,7 @@ module Passbox
                     # do nothing
                 end
             end
-            print "\nMultiple accounts found, please chose one: 1..#{files.size}"
+            print "\nMultiple accounts found, please chose one: "
             option = gets.chomp.to_i
             if (1..files.size).include?(option)
                 return files[option-1]

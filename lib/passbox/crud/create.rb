@@ -73,9 +73,9 @@ module Passbox
         cc_exp = gets.chomp
         hash = {:card_number => cc_no, :card_expiry => cc_exp}
         cc_cvv = get_password_from_user(:cvv)
-        hash[:card_cvv] => cc_cvv
+        hash[:card_cvv] = cc_cvv
         cc_pin = get_password_from_user(:card_pin)
-        hash[:card_pin] => cc_pin
+        hash[:card_pin] = cc_pin
         json = hash.to_json
         encrypt(json, key, "#{$pbdir}/#{acc}.cc")
         print "Account #{acc} has been successfully created!! \n\n".green

@@ -2,10 +2,11 @@ module Passbox
 
     def delete_pass
         check_passbox
-        acc = verify_account
+        filename = verify_account
+        key = passbox_auth
         if key
-            File.delete("#{$pbdir}/#{acc}")
-            print "\nYour account #{acc} has been deleted!!\n\n"
+            File.delete(filename)
+            print "\nYour account #{filename.split("/").last.split(".").first} has been deleted!!\n\n".bold.yellow
         end
     end
 
