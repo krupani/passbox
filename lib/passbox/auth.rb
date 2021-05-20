@@ -47,7 +47,12 @@ module Passbox
     end
 
     def password_input(action)
-        pass = STDIN.noecho(&:gets).chomp
+        begin
+            pass = STDIN.noecho(&:gets).chomp
+        rescue Interrupt
+            puts "\n\nThank you for using passbox. Bye!!\n".cyan
+            exit(0)
+        end
         case action
         when :master, :auth
             if (pass.length < 8) 
@@ -74,7 +79,7 @@ module Passbox
             return pass256File
         else
             print "Authentication Failed!!\n".bold.red
-            return false
+            exit(0)
         end
     end
 

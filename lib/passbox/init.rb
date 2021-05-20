@@ -3,6 +3,7 @@ module Passbox
     homedir = Dir.home
     $pbdir =  homedir+"/.passbox"
     $passfile = $pbdir+"/pass.mp"
+    $options = {1=>"pb", 2=>"pn", 3=>"cc"}
 
     def init
         pass256=""

@@ -5,7 +5,7 @@ module Passbox
         print "\n2. Pin"
         print "\n3. Debit/Credit Card"
         print "\nPlease select one of the above options: " 
-        return gets.chomp.to_i
+        return user_input.to_i
     end
 
     def select_option
@@ -22,6 +22,15 @@ module Passbox
                 print "\nToo many invalid attempts. Bye!!\n\n".bold.red
                 exit(0)
             end
+        end
+    end
+
+    def user_input
+        begin
+            return gets.chomp
+        rescue Interrupt
+            puts "\n\nThank you for using passbox. Bye!!\n".cyan
+            exit(0)
         end
     end
 

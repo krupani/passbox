@@ -11,7 +11,7 @@ module Passbox
     # DEPRECATED
     def creds(acc, key)
         print "Please enter in your account username: "
-        uname = gets.chomp
+        uname = user_input
         pass = get_password_from_user(:account)
         hash = {:username => uname, :password => pass}
         json = hash.to_json

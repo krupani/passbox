@@ -3,7 +3,8 @@ module Passbox
     def create_pass
         check_passbox
         option = select_option
-        acc, key = create_account(option)
+        key = passbox_auth
+        acc = create_account(option, key)
         case option
         when 1
             login(acc, key)
@@ -16,24 +17,26 @@ module Passbox
         end
     end
 
-    def create_account(option)
-        key = passbox_auth
-        if key
-            attempts = 0
-            while(true)
+    def create_account(option, key)
+        attempts = 0
+        while(true)
+            if attempts == 3
+                print "\nToo many attempts. Try again!!\n\n".bold.red
+                exit(0) 
+            end
+            print "\nEnter you account name (alphabets/numbers/underscore/dash): "
+            acc = user_input.downcase
+            if (acc.count("a-z0-9_-") == acc.length)
+                account_exists = does_account_exists(acc, option)
+                if account_exists
+                    print "Account Name already exists, try again please!!\n"
+                    attempts = attempts + 1
+                    next;
+                end
+                break
+            else
+                print "Alphabets, Numbers, Underscore and Dashes only, try again please!!\n"
                 attempts = attempts + 1
-                print "\nEnter you account name (alphabets/numbers/underscore/dash): "
-                acc = gets.chomp.downcase
-                if (acc.count("a-z0-9_-") == acc.length)
-                    # TODO: Verify here if account name already exists.. 
-                    break
-                else
-                    print "Alphabets, Numbers, Underscore and Dashes only, try again please!!\n"
-                end
-                if attempt == 3
-                    print "\nToo many attempts. Try again!!\n\n".bold.red
-                    exit(0) 
-                end
             end
         end
         return acc, key
@@ -41,14 +44,14 @@ module Passbox
 
     def login(acc, key)
         print "Please enter in your account username: "
-        uname = gets.chomp
+        uname = user_input
         pass = get_password_from_user(:account)
         hash = {:username => uname, :password => pass}
         print "Enter login url (optional): "
-        url = gets.chomp
+        url = user_input
         hash[:url] = url if url
         print "Enter note to self (optional): "
-        note = gets.chomp
+        note = user_input
         hash[:note] = note if note
         json = hash.to_json
         encrypt(json, key, "#{$pbdir}/#{acc}.pb")
@@ -59,7 +62,7 @@ module Passbox
         pass = get_password_from_user(:pin)
         hash = {:pin => pass}
         print "Enter note to self (optional): "
-        note = gets.chomp
+        note = user_input
         hash[:note] = note if note
         json = hash.to_json
         encrypt(json, key, "#{$pbdir}/#{acc}.pn")
@@ -68,9 +71,9 @@ module Passbox
 
     def cc(acc, key)
         print "Please enter in your credit/debit card number: "
-        cc_no = gets.chomp
+        cc_no = user_input
         print "Please enter your card expiry: "
-        cc_exp = gets.chomp
+        cc_exp = user_input
         hash = {:card_number => cc_no, :card_expiry => cc_exp}
         cc_cvv = get_password_from_user(:cvv)
         hash[:card_cvv] = cc_cvv
