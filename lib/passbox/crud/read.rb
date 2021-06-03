@@ -1,11 +1,13 @@
 module Passbox
 
-    def read_pass
+    def read_pass(action=:display)
         check_passbox
-        filename=verify_account
+        filename = verify_account 
         key = passbox_auth
+    
         if key
             data = JSON.parse(decrypt(filename, key))
+            return data, filename, key if (action == :update)
             case filename.split(".").last
             when "pb"
                 print "\nusername : #{data['username']}\n"
@@ -20,6 +22,7 @@ module Passbox
                 print "expiry : #{data['card_expiry']}\n"
                 print "cvv : #{data['card_cvv']}\n" if data['card_cvv']
                 print "card pin : #{data['card_pin']}\n\n" if data['card_pin']
+                print "note : #{data['note']}\n\n" if data['note']
             end
         end
     end

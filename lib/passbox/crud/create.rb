@@ -39,46 +39,118 @@ module Passbox
                 attempts = attempts + 1
             end
         end
-        return acc, key
+        return acc
     end
 
-    def login(acc, key)
-        print "Please enter in your account username: "
-        uname = user_input
-        pass = get_password_from_user(:account)
-        hash = {:username => uname, :password => pass}
+    def login(acc, key, action=:create)
+        attempts = 0
+        hash = {}
+        while(true)
+            if attempts == 3
+                print "\nToo many attempts. Try again!!\n\n".bold.red
+                exit(0) 
+            end
+            print "Please enter in your username: "
+            uname = user_input
+            if (uname == nil)
+                if (action == :create)
+                    print username_blank
+                    attempts = attempts + 1
+                    next;
+                end
+            end
+            hash["username"] = uname
+            attempts = 0
+            pass = get_password_from_user(:account)
+            if (pass == nil)
+                if (action == :create)
+                    print password_blank
+                    attempts = attempts + 1
+                    next;
+                end
+            end
+            hash["password"] = pass
+            break;
+        end
         print "Enter login url (optional): "
         url = user_input
-        hash[:url] = url if url
+        hash["url"] = url if url
         print "Enter note to self (optional): "
         note = user_input
-        hash[:note] = note if note
+        hash["note"] = note if note
+        return hash if action == :update
         json = hash.to_json
         encrypt(json, key, "#{$pbdir}/#{acc}.pb")
         print "Account #{acc} has been successfully created!! \n\n".green
     end
 
-    def pin(acc, key)
-        pass = get_password_from_user(:pin)
-        hash = {:pin => pass}
+    def pin(acc, key, action = :create)
+        attempts = 0
+        hash = {}
+        while(true)
+            if attempts == 3
+                print "\nToo many attempts. Try again!!\n\n".bold.red
+                exit(0) 
+            end
+            pass = get_password_from_user(:pin)
+            if (pass == nil)
+                if (action == :create)
+                    print pin_blank
+                    attempts = attempts + 1
+                    next;
+                end
+            end
+            hash["pin"] = pass
+            break;
+        end
         print "Enter note to self (optional): "
         note = user_input
-        hash[:note] = note if note
+        hash["note"] = note if note
+        return hash if action == :update
         json = hash.to_json
         encrypt(json, key, "#{$pbdir}/#{acc}.pn")
         print "Account #{acc} has been successfully created!! \n\n".green
     end
 
-    def cc(acc, key)
-        print "Please enter in your credit/debit card number: "
-        cc_no = user_input
-        print "Please enter your card expiry: "
-        cc_exp = user_input
-        hash = {:card_number => cc_no, :card_expiry => cc_exp}
+    def cc(acc, key, action = :create)
+        attempts = 0
+        hash = {}
+        while(true)
+            if attempts == 3
+                print "\nToo many attempts. Try again!!\n\n".bold.red
+                exit(0) 
+            end
+            print "Please enter in your credit/debit card number: "
+            cc_no = user_input
+            if (cc_no == nil)
+                if (action == :create)
+                    print cc_no_blank
+                    attempts = attempts + 1
+                    next;
+                end
+            end
+            hash["card_number"] = cc_no
+            attempts = 0
+            print "Please enter your card expiry: "
+            cc_exp = user_input
+            if (cc_exp == nil)
+                if (action == :create)
+                    print cc_exp_blank
+                    attempts = attempts + 1
+                    next;
+                end
+            end
+            hash["card_expiry"] = cc_exp
+            break;
+        end
         cc_cvv = get_password_from_user(:cvv)
-        hash[:card_cvv] = cc_cvv
+        hash["card_cvv"] = cc_cvv
         cc_pin = get_password_from_user(:card_pin)
-        hash[:card_pin] = cc_pin
+        hash["card_pin"] = cc_pin
+        print "Enter note to self (optional): "
+        note = user_input
+        hash["note"] = note if note
+        return hash if action == :update
         json = hash.to_json
         encrypt(json, key, "#{$pbdir}/#{acc}.cc")
         print "Account #{acc} has been successfully created!! \n\n".green
