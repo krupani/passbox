@@ -21,21 +21,21 @@ module Passbox
         attempts = 0
         while(true)
             if attempts == 3
-                print "\nToo many attempts. Try again!!\n\n".bold.red
+                print too_many_attempts.bold.red
                 exit(0) 
             end
-            print "\nEnter you account name (alphabets/numbers/underscore/dash): "
+            print enter_account_name
             acc = user_input.downcase
             if (acc.count("a-z0-9_-") == acc.length)
                 account_exists = does_account_exists(acc, option)
                 if account_exists
-                    print "Account Name already exists, try again please!!\n"
+                    print account_exists
                     attempts = attempts + 1
                     next;
                 end
                 break
             else
-                print "Alphabets, Numbers, Underscore and Dashes only, try again please!!\n"
+                print account_name_invalid
                 attempts = attempts + 1
             end
         end
@@ -47,10 +47,10 @@ module Passbox
         hash = {}
         while(true)
             if attempts == 3
-                print "\nToo many attempts. Try again!!\n\n".bold.red
+                print too_many_attempts.bold.red
                 exit(0) 
             end
-            print "Please enter in your username: "
+            print enter_username
             uname = user_input
             if (uname == nil)
                 if (action == :create)
@@ -72,10 +72,10 @@ module Passbox
             hash["password"] = pass
             break;
         end
-        print "Enter login url (optional): "
+        print enter_url
         url = user_input
         hash["url"] = url if url
-        print "Enter note to self (optional): "
+        print enter_note
         note = user_input
         hash["note"] = note if note
         return hash if action == :update
@@ -89,7 +89,7 @@ module Passbox
         hash = {}
         while(true)
             if attempts == 3
-                print "\nToo many attempts. Try again!!\n\n".bold.red
+                print too_many_attempts.bold.red
                 exit(0) 
             end
             pass = get_password_from_user(:pin)
@@ -103,7 +103,7 @@ module Passbox
             hash["pin"] = pass
             break;
         end
-        print "Enter note to self (optional): "
+        print enter_note
         note = user_input
         hash["note"] = note if note
         return hash if action == :update
@@ -117,10 +117,10 @@ module Passbox
         hash = {}
         while(true)
             if attempts == 3
-                print "\nToo many attempts. Try again!!\n\n".bold.red
+                print too_many_attempts.bold.red
                 exit(0) 
             end
-            print "Please enter in your credit/debit card number: "
+            print enter_cc_no
             cc_no = user_input
             if (cc_no == nil)
                 if (action == :create)
@@ -131,7 +131,7 @@ module Passbox
             end
             hash["card_number"] = cc_no
             attempts = 0
-            print "Please enter your card expiry: "
+            print enter_cc_exp
             cc_exp = user_input
             if (cc_exp == nil)
                 if (action == :create)
@@ -147,7 +147,7 @@ module Passbox
         hash["card_cvv"] = cc_cvv
         cc_pin = get_password_from_user(:card_pin)
         hash["card_pin"] = cc_pin
-        print "Enter note to self (optional): "
+        print enter_note
         note = user_input
         hash["note"] = note if note
         return hash if action == :update

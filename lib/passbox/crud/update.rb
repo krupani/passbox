@@ -3,11 +3,11 @@ module Passbox
     def update_pass
         existing, filename, key = read_pass(:update)
         update_details(existing, filename, key)
-        print "\nAccount details has been successfully updated!! \n".green
+        print account_update_success.green
     end
 
     def update_details(existing, filename, key)
-        print "\nHit enter for no change or input a new value. \n".yellow
+        print update_instructions.yellow
         change_flag = false
         case filename.split(".").last
         when "pb"

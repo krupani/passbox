@@ -5,43 +5,43 @@ module Passbox
     def get_password_from_user(action=:account)
         case action
         when :account
-            print "Please enter your Account Password: "
+            print enter_account_password
             return password_input(action)
         when :pin
-            print "Please enter you Account Pin: "
+            print enter_account_pin
             return password_input(action)
         when :cvv
-            print "Please enter you Card CVV: "
+            print enter_cc_cvv
             return password_input(action)
         when :card_pin
-            print "Please enter you Card Pin: "
+            print enter_cc_pin
             return password_input(action)
         when :master
             attempt = 0
             while(true)
                 attempt = attempt + 1;
-                print "Please create your master password (min 8 chars): "
+                print create_master_password
                 pass256 = password_input(action)
                 if pass256
-                    print "\nPlease re-enter your password: "
+                    print re_enter_master_password
                     re_pass256 = password_input(action)
                     if re_pass256 == pass256
-                        print "\n\nPassbox setup complete. Use 'passbox help' to explore.\n\n".bold.green
+                        print pb_setup_complete.bold.green
                         return pass256 
                     else
-                        print "\n\nPasswords don't match. Try again!!\n\n".bold.red
+                        print passwords_mismatch.bold.red
                         exit(0);
                     end
                 else
-                    print "\nPassword should be minimum 8 characters, try again!!\n".red
+                    print password_validation.red
                 end
                 if attempt == 3
-                    print "\nToo many attempts. Try again!!\n\n".bold.red
+                    print too_many_attempts.bold.red
                     exit(0) 
                 end
             end
         when :auth
-            print "Please enter your Master Password: "
+            print enter_master_password
             return password_input(action)
         end
     end
@@ -50,7 +50,7 @@ module Passbox
         begin
             pass = STDIN.noecho(&:gets).chomp
         rescue Interrupt
-            puts "\n\nThank you for using passbox. Bye!!\n".cyan
+            puts thank_you.cyan
             exit(0)
         end
         case action
@@ -59,7 +59,7 @@ module Passbox
                 if (action == :master) 
                     return false
                 elsif (action == :auth)
-                    print "\nInvalid Password!!\n".bold.red
+                    print invalid_password.bold.red
                     exit(0)
                 end 
             else
@@ -75,10 +75,10 @@ module Passbox
         pass256User = get_password_from_user(:auth)
         pass256File = decrypt($passfile, pass256User)
         if pass256File == pass256User
-            print "Authentication Successful!!\n".bold.green
+            print auth_success.bold.green
             return pass256File
         else
-            print "Authentication Failed!!\n".bold.red
+            print auth_failed.bold.red
             exit(0)
         end
     end

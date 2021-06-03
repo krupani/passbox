@@ -22,15 +22,15 @@ module Passbox
             print "#{i+1}. #{file.split('/').last.split('.').first}\n".yellow
             empty = false
         end
-        print "\nNo records to show. Use 'passbox add' to create new account.\n\n".yellow if empty
+        print no_accounts.yellow if empty
     end
 
     def verify_account
-        print "Please enter you account name: "
+        print enter_account_name
         acc = user_input
         files = Dir.glob("#{$pbdir}/#{acc}.{pb,pn,cc}")
         if files.size == 0
-            print "Account not found, Use 'passbox list' to see all your existing accounts.\n"
+            print account_not_found
             exit(0)
         elsif files.size == 1
             return files.first
@@ -49,12 +49,12 @@ module Passbox
                     # do nothing
                 end
             end
-            print "\nMultiple accounts found, please chose one: "
+            print multiple_accounts
             option = user_input.to_i
             if (1..files.size).include?(option)
                 return files[option-1]
             else
-                print "\nInvalid selection. Try again. Bye!!\n\n".red
+                print invalid_selection.red
                 exit(0)
             end
         end
