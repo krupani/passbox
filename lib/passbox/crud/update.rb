@@ -12,8 +12,6 @@ module Passbox
         case filename.split(".").last
         when "pb"
             updated = login(nil, key, :update)
-            puts existing
-            puts updated
             existing["username"] = updated["username"] unless updated["username"].empty?
             existing["password"] = updated["password"] unless updated["password"].empty?
             existing["url"] = updated["url"] unless updated["url"].empty?

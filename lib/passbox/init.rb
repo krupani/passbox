@@ -1,7 +1,7 @@
 
 module Passbox
     homedir = Dir.home
-    $pbdir =  "/Users/kaushalr/projects/kaushal/passbox/.passbox"
+    $pbdir =  homedir+"/.passbox"
     $passfile = $pbdir+"/pass.mp"
     $options = {1=>"pb", 2=>"pn", 3=>"cc"}
 
