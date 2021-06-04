@@ -1,7 +1,7 @@
 
 module Passbox
     homedir = Dir.home
-    $pbdir =  homedir+"/.passbox"
+    $pbdir =  "/Users/kaushalr/projects/kaushal/passbox/.passbox"
     $passfile = $pbdir+"/pass.mp"
     $options = {1=>"pb", 2=>"pn", 3=>"cc"}
 
@@ -10,7 +10,7 @@ module Passbox
         
         if (Dir.exists?($pbdir))
             if(File.exists?($passfile))
-                print "Your passbox is already setup. Please type 'passbox help' to see usage.\n"
+                print pb_already_setup
                 return
             else
                 pass256 = get_password_from_user(:master)
@@ -24,7 +24,8 @@ module Passbox
 
     def check_passbox
         if !File.exists?($passfile)
-            print "Passbox is not setup, please start with 'passbox init' command to start using passbox\n"
+            print pb_not_setup
+            exit(0)
         end
     end
 
