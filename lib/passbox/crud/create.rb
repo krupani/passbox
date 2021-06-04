@@ -26,10 +26,15 @@ module Passbox
             end
             print enter_account_name
             acc = user_input.downcase
+            if acc.empty?
+                print account_name_blank.red
+                attempts = attempts + 1
+                next;
+            end
             if (acc.count("a-z0-9_-") == acc.length)
                 account_exists = does_account_exists(acc, option)
                 if account_exists
-                    print account_exists
+                    print account_already_exists.red
                     attempts = attempts + 1
                     next;
                 end
@@ -45,39 +50,14 @@ module Passbox
     def login(acc, key, action=:create)
         attempts = 0
         hash = {}
-        while(true)
-            if attempts == 3
-                print too_many_attempts.bold.red
-                exit(0) 
-            end
-            print enter_username
-            uname = user_input
-            if (uname == nil)
-                if (action == :create)
-                    print username_blank
-                    attempts = attempts + 1
-                    next;
-                end
-            end
-            hash["username"] = uname
-            attempts = 0
-            pass = get_password_from_user(:account)
-            if (pass == nil)
-                if (action == :create)
-                    print password_blank
-                    attempts = attempts + 1
-                    next;
-                end
-            end
-            hash["password"] = pass
-            break;
-        end
+        hash["username"] = fill_manadatory_field(enter_username, username_blank, action)
+        hash["password"] = fill_manadatory_field("", password_blank, action, :account)
         print enter_url
         url = user_input
-        hash["url"] = url if url
+        hash["url"] = url unless url.empty?
         print enter_note
         note = user_input
-        hash["note"] = note if note
+        hash["note"] = note unless note.empty?
         return hash if action == :update
         json = hash.to_json
         encrypt(json, key, "#{$pbdir}/#{acc}.pb")
@@ -87,25 +67,10 @@ module Passbox
     def pin(acc, key, action = :create)
         attempts = 0
         hash = {}
-        while(true)
-            if attempts == 3
-                print too_many_attempts.bold.red
-                exit(0) 
-            end
-            pass = get_password_from_user(:pin)
-            if (pass == nil)
-                if (action == :create)
-                    print pin_blank
-                    attempts = attempts + 1
-                    next;
-                end
-            end
-            hash["pin"] = pass
-            break;
-        end
+        hash["pin"] = fill_manadatory_field("", pin_blank, action, :pin)
         print enter_note
         note = user_input
-        hash["note"] = note if note
+        hash["note"] = note unless note.empty?
         return hash if action == :update
         json = hash.to_json
         encrypt(json, key, "#{$pbdir}/#{acc}.pn")
@@ -115,45 +80,42 @@ module Passbox
     def cc(acc, key, action = :create)
         attempts = 0
         hash = {}
+        hash["card_number"] = fill_manadatory_field(enter_cc_no, cc_no_blank, action)
+        hash["card_expiry"] = fill_manadatory_field(enter_cc_exp, cc_exp_blank, action)
+        hash["card_cvv"] = fill_manadatory_field("", cc_cvv_blank, action, :cvv)
+        cc_pin = get_password_from_user(:card_pin)
+        hash["card_pin"] = cc_pin unless cc_pin.empty?
+        print enter_note
+        note = user_input
+        hash["note"] = note unless note.empty?
+        return hash if action == :update
+        json = hash.to_json
+        encrypt(json, key, "#{$pbdir}/#{acc}.cc")
+        print "Account #{acc} has been successfully created!! \n\n".green
+    end
+
+    def fill_manadatory_field(enter_message, blank_message, action=:create, type=nil)
+        attempts = 0
         while(true)
             if attempts == 3
                 print too_many_attempts.bold.red
                 exit(0) 
             end
-            print enter_cc_no
-            cc_no = user_input
-            if (cc_no == nil)
+            if (type.nil?)
+                print enter_message
+                field = user_input
+            else
+                field = get_password_from_user(type)
+            end
+            if field.empty?
                 if (action == :create)
-                    print cc_no_blank
+                    print blank_message.red
                     attempts = attempts + 1
                     next;
                 end
             end
-            hash["card_number"] = cc_no
-            attempts = 0
-            print enter_cc_exp
-            cc_exp = user_input
-            if (cc_exp == nil)
-                if (action == :create)
-                    print cc_exp_blank
-                    attempts = attempts + 1
-                    next;
-                end
-            end
-            hash["card_expiry"] = cc_exp
-            break;
+            return field  
         end
-        cc_cvv = get_password_from_user(:cvv)
-        hash["card_cvv"] = cc_cvv
-        cc_pin = get_password_from_user(:card_pin)
-        hash["card_pin"] = cc_pin
-        print enter_note
-        note = user_input
-        hash["note"] = note if note
-        return hash if action == :update
-        json = hash.to_json
-        encrypt(json, key, "#{$pbdir}/#{acc}.cc")
-        print "Account #{acc} has been successfully created!! \n\n".green
     end
 
 end

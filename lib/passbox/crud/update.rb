@@ -12,21 +12,23 @@ module Passbox
         case filename.split(".").last
         when "pb"
             updated = login(nil, key, :update)
-            existing["username"] = updated["username"] if updated["username"]
-            existing["password"] = updated["password"] if updated["password"]
-            existing["url"] = updated["url"] if updated["url"]
-            existing["note"] = updated["note"] if updated["note"]
+            puts existing
+            puts updated
+            existing["username"] = updated["username"] unless updated["username"].empty?
+            existing["password"] = updated["password"] unless updated["password"].empty?
+            existing["url"] = updated["url"] unless updated["url"].empty?
+            existing["note"] = updated["note"] unless updated["note"].empty?
         when "pn"
             updated = pin(nil, key, :update)
-            existing["pin"] = updated["pin"] if updated["pin"]
-            existing["note"] = updated["note"] if updated["note"]  
+            existing["pin"] = updated["pin"] unless updated["pin"].empty?
+            existing["note"] = updated["note"] unless updated["note"].empty?  
         when "cc"
             updated = cc(nil, key, :update)
-            existing["card_number"] = updated["card_number"] if updated["card_number"]
-            existing["card_expiry"] = updated["card_expiry"] if updated["card_expiry"]
-            existing["card_cvv"] = updated["card_cvv"] if updated["card_cvv"]
-            existing["card_pin"] = updated["card_pin"] if updated["card_pin"]
-            existing["note"] = updated["note"] if updated["note"]
+            existing["card_number"] = updated["card_number"] unless updated["card_number"].empty?
+            existing["card_expiry"] = updated["card_expiry"] unless updated["card_expiry"].empty?
+            existing["card_cvv"] = updated["card_cvv"] unless updated["card_cvv"].empty?
+            existing["card_pin"] = updated["card_pin"] unless updated["card_pin"].empty?
+            existing["note"] = updated["note"] unless updated["note"].empty?
         else
             # do nothing
         end

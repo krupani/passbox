@@ -1,10 +1,16 @@
 module Passbox
 
-    def username_blank; return "Username is a mandatory field, it cannot be blank, try again!!"; end
-    def password_blank; return "Password is a mandatory field, it cannot be blank, try again!!"; end
-    def pin_blank;      return "Pin is a mandatory field, it cannot be blank, try again!!"; end
-    def cc_no_blank;    return "Credit/Debit Card is a mandatory field, it cannot be blank, try again!!"; end
-    def cc_exp_blank;   return "Card Expiry is a mandatory field, it cannot be blank, try again!!"; end
+    def account_name_blank; return "Account Name cannot be empty, try again!!\n"; end
+    def username_blank;     return "Username cannot be empty, try again!!\n"; end
+    def password_blank;     return "Password cannot be empty, try again!!\n"; end
+    def pin_blank;          return "Pin cannot be empty, try again!!\n"; end
+    def cc_no_blank;        return "Credit/Debit Card cannot be empty, try again!!\n"; end
+    def cc_exp_blank;       return "Card Expiry cannot be empty, try again!!\n"; end
+    def cc_cvv_blank;       return "Card CVV cannot be empty, try again!!\n"; end
+
+    # init.rb
+    def pb_already_setup;   return "Your passbox is already setup. Please type 'passbox help' to see usage.\n"; end
+    def pb_not_setup;       return "Passbox is not setup, please start with 'passbox init' command to start using passbox.\n"; end
 
     # accounts.rb
     def no_accounts;        return "\nNo records to show. Use 'passbox add' to create new account.\n\n"; end
@@ -14,12 +20,12 @@ module Passbox
     def invalid_selection;  return "\nInvalid selection. Try again. Bye!!\n\n"; end
 
     # create.rb
-    def too_many_attempts;      return "\nToo many attempts. Try again!!\n\n"; end
+    def too_many_attempts;      return "\nToo many attempts. Start again!!\n\n"; end
     def enter_account_name;     return "\nEnter you account name (alphabets/numbers/underscore/dash): "; end
-    def account_exists;         return "Account Name already exists, try again please!!\n"; end
+    def account_already_exists; return "Account Name already exists, try different name!!\n"; end
     def account_name_invalid;   return "Alphabets, Numbers, Underscore and Dashes only, try again please!!\n"; end
     def enter_username;         return "Please enter in your username: "; end
-    def enter_url;              return "Please enter in your username: "; end
+    def enter_url;              return "Please enter in the login url: "; end
     def enter_note;             return "Enter note to self (optional): "; end
     def enter_cc_no;            return "Please enter in your credit/debit card number: "; end
     def enter_cc_exp;           return "Please enter your card expiry: "; end
