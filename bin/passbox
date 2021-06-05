@@ -5,40 +5,31 @@ require 'passbox'
 def print_help
     puts <<HELP
 
-        Usage: passbox <command>
+    Commands 
 
-        Commands 
+    -v, version     Prints the version of passbox.
+                    Usage: passbox version | passbox -v | passbox --version
 
-            version :   Prints the version of passbox 
-                        currently installed.
-                        Usage: passbox --version | passbox -v
+    -h, help        Prints help information
+                    Usage: passbox help | passbox -h | passbox --help
 
-            help    :   Prints help information
-                        (No authentication required.)
-                        Usage: passbox help | passbox -h | passbox --help
+    -i, init        Setup a passbox store and create master password. 
+                    Usage: passbox init | passbox -i
 
-            init    :   Helps setup a passbox store and
-                        setup a master password. 
-                        Usage: passbox init | passbox -i
+    ls, list        Lists all accounts in passbox.
+                    Usage: passbox list | passbox ls
 
-            list    :   Lists all accounts in passbox.
-                        (No authentication required.)
-                        Usage: passbox list | passbox ls
+    +,  add         add a new account into passbox.
+                    Usage: passbox add | passbox +
 
-            add     :   add a new account with username and
-                        password into passbox.
-                        (Authentication required.)
+    =,  read        read an account present in passbox.
+                    Usage: passbox read | passbox =
 
-            read    :   read username and password from an
-                        existing account present in passbox.
-                        (Authentication required.)
-
-            update  :   update username and password in an 
-                        existing account present in passbox.
-                        (Authentication required.)
-                        
-            delete  :   delete an account from passbox.
-                        (Authentication required.)
+    ++, update      update details of an account present in passbox.
+                    Usage: passbox update | passbox ++
+                
+    -,  delete      delete an account from passbox.
+                    Usage: passbox delete | passbox del | passbox -
                         
 HELP
 end
@@ -54,13 +45,13 @@ else
         puts File.read(File.expand_path("../../lib/passbox/version", __FILE__))
     when "init", "-i"
         init
-    when "add"
+    when "+", "add"
         create_pass
-    when "read"
+    when "=", "read"
         read_pass
-    when "update"
+    when "++", "update"
         update_pass
-    when "delete"
+    when "-", "delete", "del"
         delete_pass
     when "list", "ls"
         list_of_accounts

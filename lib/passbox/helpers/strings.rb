@@ -10,10 +10,10 @@ module Passbox
 
     # init.rb
     def pb_already_setup;   return "Your passbox is already setup. Please type 'passbox help' to see usage.\n"; end
-    def pb_not_setup;       return "Passbox is not setup, please start with 'passbox init' command to start using passbox.\n"; end
+    def pb_not_setup;       return "Passbox is not setup, use 'passbox init' command to start.\n"; end
 
     # accounts.rb
-    def no_accounts;        return "\nNo records to show. Use 'passbox add' to create new account.\n\n"; end
+    def no_accounts;        return "\nIts all empty here!! Use 'passbox add' to create new account.\n\n"; end
     def enter_account_name; return "Please enter you account name: "; end
     def account_not_found;  return "Account not found, Use 'passbox list' to see all your existing accounts.\n"; end
     def multiple_accounts;  return "\nMultiple accounts found, please chose one: "; end
