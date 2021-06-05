@@ -36,7 +36,7 @@ end
 
 if ARGV.length == 0
     print_help
-else
+elsif ARGV.length == 1
     cmd = ARGV.shift
     case(cmd.downcase)
     when "help", "--help", "-h"
@@ -56,6 +56,8 @@ else
     when "list", "ls"
         list_of_accounts
     else
-        puts "Invalid Command. Enter 'passbox help' to show usage"
+        puts "Invalid Command. Enter 'passbox help' to show usage.".red
     end
+else
+    puts "Too many arguments. Enter 'passbox help' to show usage.".red
 end
