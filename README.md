@@ -83,8 +83,8 @@ This command will give you an option to chose the type of secret you want to add
   - Note (optional)    
 
 After chosing an option above, the utility will ask you 2 questions:
-- to enter you account name for which you want to view the password.     
-- to enter you master password for authentication purposes. 
+- to create a new account name.      
+- to enter your master password for authentication purposes. 
      
 ### <a name="read"></a> 3c. Read an existing password     
 Once you have saved your password, you can view them as and when needed, authenticating using your master password and entering your account name of the password you want to view, as follows :     
