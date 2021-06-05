@@ -1,5 +1,12 @@
 require 'passbox/aes'
 require 'passbox/auth'
 require 'passbox/init'
-require 'passbox/crud'
+require 'passbox/accounts'
+require 'passbox/crud/create'
+require 'passbox/crud/read'
+require 'passbox/crud/update'
+require 'passbox/crud/delete'
+require 'passbox/helpers/options'
+require 'passbox/helpers/colourize'
+require 'passbox/helpers/strings'
 include Passbox

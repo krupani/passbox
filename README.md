@@ -65,12 +65,26 @@ Once passbox is setup, you can start adding password. It can be done using the c
 ```console
 $ passbox add 
 ```     
-     
-This command will ask you 3 questions:
-- first to enter your account name (no special charaters)    
-    - eg twitter, facebook etc     
-- second to enter your account username     
-- last to enter your password    
+
+This command will give you an option to chose the type of secret you want to add into passbox:     
+- Login 
+  - Username<sup>*</sup>      
+  - Password<sup>*</sup>    
+  - Url (optional)     
+  - Note (optional)    
+- Pin (Pin)
+  - Pin<sup>*</sup>    
+  - Note (optional)    
+- Credit / Debit Card
+  - Card Number<sup>*</sup>    
+  - Card Expiry<sup>*</sup>    
+  - Card CVV<sup>*</sup>    
+  - Card Pin (optional)     
+  - Note (optional)    
+
+After chosing an option above, the utility will ask you 2 questions:
+- to create a new account name.      
+- to enter your master password for authentication purposes. 
      
 ### <a name="read"></a> 3c. Read an existing password     
 Once you have saved your password, you can view them as and when needed, authenticating using your master password and entering your account name of the password you want to view, as follows :     
@@ -90,11 +104,11 @@ You can update your account details (username and password) when needed, authent
 $ passbox update 
 ```    
      
-This command will ask you 4 questions:     
+This command will first ask you 2 questions:   
 - First to enter you account name for which you want to update the password.     
 - Next, to enter you master password for authentication purposes.    
-- Then to enter your new updated account username     
-- Last to enter your new updated password   
+   
+Then depending the account type, appropriate fields will be asked to be filled. If you wish to not change the exisitng value, just hit enter and move onto next field or enter a new value to update the field to new value.    
      
 ### <a name="delete"></a> 3e. Delete an existing account
 You can delete an existing account, if you do not need it anymore. It can be done using the delete command and does not require any kind of authentication.     
@@ -103,7 +117,9 @@ You can delete an existing account, if you do not need it anymore. It can be don
 $ passbox delete 
 ```   
     
-This command will only ask you the account name to delete.    
+This command will first ask you 2 questions:   
+- First to enter you account name which you want to delete.      
+- Next, to enter you master password for authentication purposes.      
 
 ### <a name="list"></a> 3f. List all available accounts   
 You can list all accounts you have using the following command without any authentication required.    
@@ -116,4 +132,4 @@ $ passbox list
 Ideas and suggestions are always always most welcome. Please fork this code and feel free to add any updates, suggestions etc and create a pull request.   
 
 ## <a name="issues"></a> 5. Issues    
-If you face any problem related to syntax, usability, documentation then please raise an [issues](https://github.com/krupani/passbox/issues) . Please note to add in detailed description of the issue you are facing.    
+If you face any problem related to syntax, usability, documentation then please raise an [issue](https://github.com/krupani/passbox/issues) . Please note to add details of the issue you are facing.    
