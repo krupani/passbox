@@ -18,7 +18,7 @@ module Passbox
         decipher = OpenSSL::Cipher::AES256.new(:CTR)
         decipher.decrypt
         decipher.iv = data[0..15]
-        data = data[16..]
+        data = data[16..-1]
         decipher.key = key[0..31]
         decrypted_data = decipher.update(data) + decipher.final
         return decrypted_data
