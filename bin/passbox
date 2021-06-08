@@ -30,6 +30,8 @@ def print_help
                 
     -,  delete      delete an account from passbox.
                     Usage: passbox delete | passbox del | passbox -
+
+    genpass         Generates a secure password of chosen size
                         
 HELP
 end
@@ -55,6 +57,8 @@ elsif ARGV.length == 1
         delete_pass
     when "list", "ls"
         list_of_accounts
+    when "genpass"
+        generate
     else
         puts "Invalid Command. Enter 'passbox help' to show usage.".red
     end
