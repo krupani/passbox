@@ -8,8 +8,8 @@ module Passbox
     def init
         pass256=""
         
-        if (Dir.exists?($pbdir))
-            if(File.exists?($passfile))
+        if (Dir.exist?($pbdir))
+            if(File.exist?($passfile))
                 print pb_already_setup
                 return
             else
@@ -23,7 +23,7 @@ module Passbox
     end
 
     def check_passbox
-        if !File.exists?($passfile)
+        if !File.exist?($passfile)
             print pb_not_setup
             exit(0)
         end

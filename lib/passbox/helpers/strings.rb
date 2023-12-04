@@ -50,4 +50,5 @@ module Passbox
     def auth_success;               return "Authentication Successful!!\n"; end
     def auth_failed;                return "Authentication Failed!!\n"; end
 
+    def invalid_input;  return "Invalid Input. Try again!!\n"; end
 end

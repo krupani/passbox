@@ -9,4 +9,5 @@ require 'passbox/crud/delete'
 require 'passbox/helpers/options'
 require 'passbox/helpers/colourize'
 require 'passbox/helpers/strings'
+require 'passbox/helpers/generator'
 include Passbox
